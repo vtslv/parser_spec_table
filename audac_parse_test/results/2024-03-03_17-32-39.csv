@@ -1,0 +1,25 @@
+Характеристика,|,Значение,||
+Speaker type,|,Full range,||
+Peak power handling,|,140 W,||
+Program power handling,|,70 W,||
+RMS/AES power handling,|,35 W,||
+Impedance,|,8 Ω (ATEO4),||
+,|,16 Ω (ATEO4D),||
+          Left,|,30°,||
+          Right,|,30°,||
+          Bottom,|,30°,||
+          Top,|,5°,||
+Sensitivity (1W/1m),|,86 dB,||
+          @ 8 Ω,|,101 dB,||
+          @ 100 V,|,100 dB,||
+          Response (± 3 dB),|,100 Hz - 20 kHz,||
+          Range (-10 dB),|,65 Hz - 20 kHz,||
+          Horizontal,|,130°,||
+          Vertical,|,130°,||
+Connectors,|,6-pin Custom Terminal Block,||
+Drivers,|,1” Dome tweeter,||
+,|,4” MF / LF Woofer,||
+          1,|,208 Ω - 100 V / Not used - 70 V / 24 W,||
+          2,|,417 Ω - 100 V / 24 W - 70 V / 12 W,||
+          3,|,833 Ω - 100 V / 12 W - 70 V / 6 W,||
+          4,|,1667 Ω - 100 V / 6 W - 70 V / 3 W,||
