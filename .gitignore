@@ -1,5 +1,7 @@
 no_need/
 logs/
+.http_cache.sqlite
+logs/
 
 
 # Byte-compiled / optimized / DLL files
