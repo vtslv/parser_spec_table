@@ -102,20 +102,16 @@
 
 
 
-import requests_cache
-from bs4 import BeautifulSoup
-from pathlib import Path
-
 import csv
 import datetime as dt
-from pprint import pprint
-import pandas as pd
-
-from openpyxl import Workbook
-
 import os
+from pathlib import Path
+from pprint import pprint
 
 import pandas as pd
+import requests_cache
+from bs4 import BeautifulSoup
+from openpyxl import Workbook
 from pandas.io.excel import ExcelWriter
 
 BASE_DIR = Path(__file__).parent
@@ -159,16 +155,14 @@ def get_spec_tables_lst():
             print(spec_table_soup)
             return tr_tags_spec
             # tr_lst.append(tr_tags_spec)
-
-
-            #pprint(tr_lst)
+            # pprint(tr_lst)
 
 def aaa(tr_tags_spec):
     table = []
     for tr_tag in tr_tags_spec:
         row = []
         for td_tag in tr_tag.find_all('td'):
-            colspan = td_tag.attrs.get('colspan')
+            # colspan = td_tag.attrs.get('colspan')
             # row.append(td_tag.text or None)
             row.append(td_tag.text or '-')
         table.append(row)
@@ -208,9 +202,6 @@ def main():
     a = get_spec_tables_lst()
     aaa(a)
 
-
-
 if __name__ == '__main__':
 
     main()
-

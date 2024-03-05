@@ -1,23 +1,20 @@
-import requests_cache
-from bs4 import BeautifulSoup
+import logging
 from pathlib import Path
 
-import csv
-import datetime as dt
-from pprint import pprint
-import pandas as pd
-
-from openpyxl import Workbook
-import logging
-
-import os
-
-import pandas as pd
-from pandas.io.excel import ExcelWriter
-
+# import datetime as dt
+# from pprint import pprint
+# import pandas as pd
+import requests_cache
+from bs4 import BeautifulSoup
 from configs import configure_logging
+# from openpyxl import Workbook
 from output import output
+# from pandas.io.excel import ExcelWriter
 from utils import get_response
+
+# import pandas as pd
+# import os
+
 
 BASE_DIR = Path(__file__).parent
 DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
@@ -29,7 +26,6 @@ PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-cleverm
 #     'https://audac.eu/eu/products/d/alti6---2-way-6inch-pendant-speaker#section-specifications',
 #     'https://audac.eu/eu/products/d/xeno6---full-range-speaker-6inch#section-specifications'
 # ]
-
 
 
 # def get_response(session, url):
@@ -44,13 +40,11 @@ PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-cleverm
 #             stack_info=True
 #         )
 
-
-
 def get_spec_tables_lst():
     # Загрузка веб-страницы с кешированием.
     session = requests_cache.CachedSession()
     # for product_url in PRODUCTS_URL:
-        # response = session.get(product_url)
+    #     response = session.get(product_url)
 
     # response = session.get(PRODUCTS_URL)
     # response.encoding = 'utf-8'
@@ -75,9 +69,13 @@ def get_spec_tables_lst():
 
     first_spec_table_bs.append(second_spec_table_bs)
 
-    # spec_table_soup = BeautifulSoup(first_spec_table_bs.text, features='lxml')
+    # spec_table_soup = BeautifulSoup(
+    #     first_spec_table_bs.text,
+    #     features='lxml'
+    # )
     tr_tags_spec = first_spec_table_bs.find_all('tr')
     return tr_tags_spec
+
 
 def aaa(tr_tags_spec):
     table = []
@@ -125,14 +123,12 @@ def main():
     configure_logging()
     logging.info('Парсер запущен!')
 
-
     a = get_spec_tables_lst()
     results = aaa(a)
 
     if results is not None:
         output(results)
     logging.info('Парсер завершил работу.')
-
 
 
 if __name__ == '__main__':

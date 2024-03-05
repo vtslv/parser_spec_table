@@ -1,8 +1,7 @@
-import argparse
 import logging
 from logging.handlers import RotatingFileHandler
-
 from pathlib import Path
+
 # from constants import BASE_DIR
 BASE_DIR = Path(__file__).parent
 

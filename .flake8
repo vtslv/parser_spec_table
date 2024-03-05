@@ -7,3 +7,5 @@ max-complexity = 10
 exclude =
   tests
   venv
+  no_need
+  parser_audac_var_3.py

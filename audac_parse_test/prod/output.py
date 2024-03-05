@@ -1,15 +1,14 @@
 # import os
 import datetime as dt
-
+import logging
 from pathlib import Path
 
 import pandas as pd
 from pandas.io.excel import ExcelWriter
 
-import logging
-
 BASE_DIR = Path(__file__).parent
 DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
+
 
 def output(upd_table):
 
@@ -21,8 +20,6 @@ def output(upd_table):
     now_formatted = now.strftime(DATETIME_FORMAT)
     file_name = f'{now_formatted}.xlsx'
     file_path = results_dir / file_name
-
-
     df = pd.DataFrame(upd_table)
 
     with ExcelWriter(file_path) as writer:
