@@ -1,8 +1,6 @@
 import logging
 from pathlib import Path
 
-# import datetime as dt
-# from pprint import pprint
 # import pandas as pd
 import requests_cache
 from bs4 import BeautifulSoup
@@ -12,8 +10,8 @@ from output import output
 # from pandas.io.excel import ExcelWriter
 from utils import get_response
 
-# import pandas as pd
-# import os
+# import datetime as dt
+# from pprint import pprint
 
 
 BASE_DIR = Path(__file__).parent
@@ -27,18 +25,6 @@ PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-cleverm
 #     'https://audac.eu/eu/products/d/xeno6---full-range-speaker-6inch#section-specifications'
 # ]
 
-
-# def get_response(session, url):
-#     """Перехват ошибки RequestException."""
-#     try:
-#         response = session.get(url)
-#         response.encoding = 'utf-8'
-#         return response
-#     except RequestException:
-#         logging.exception(
-#             f'Возникла ошибка при загрузке страницы {url}',
-#             stack_info=True
-#         )
 
 def get_spec_tables_lst():
     # Загрузка веб-страницы с кешированием.
@@ -63,35 +49,26 @@ def get_spec_tables_lst():
     )
 
     # взял вторую таблицу из трех на странице. остальные потом/
-
     first_spec_table_bs = all_spec_table_bs[1]
     second_spec_table_bs = all_spec_table_bs[2]
-
     first_spec_table_bs.append(second_spec_table_bs)
-
-    # spec_table_soup = BeautifulSoup(
-    #     first_spec_table_bs.text,
-    #     features='lxml'
-    # )
     tr_tags_spec = first_spec_table_bs.find_all('tr')
-    return tr_tags_spec
-
-
-def aaa(tr_tags_spec):
-    table = []
+    logging.info('Получены все "tr" тэги!')
+    td_tag_text_table = []
+    logging.info('Получение текста "td" тэгов...')
     for tr_tag in tr_tags_spec:
         row = []
         for td_tag in tr_tag.find_all('td'):
-            # colspan = td_tag.attrs.get('colspan')
-            # row.append(td_tag.text or None)
             row.append(td_tag.text or '-')
-        table.append(row)
+        td_tag_text_table.append(row)
+    logging.info('Получен текст "td" тэгов!')
+    return td_tag_text_table
 
-    # pprint(table)
 
+def formation_text_table(td_table):
     upd_table = [['Характеристика', '|', 'Значение', '||']]
-
-    for row in table:
+    logging.info('Форматирование таблицы...')
+    for row in td_table:
         if len(row) == 2:
             row.insert(1, '|')
             row.insert(3, '||')
@@ -103,29 +80,27 @@ def aaa(tr_tags_spec):
             # row = [row[0], '|', None, '||']
             row = [row[0], '|', '-', '||']
             upd_table.append(row)
-
             upd_row = [' ' * 10 + c1, '|', c2, '||']
             upd_table.append(upd_row)
-    # return output(upd_table)
+    logging.info('Форматирование таблицы звавершено!')
+    return empty_row_delete(upd_table)
+
+
+def empty_row_delete(upd_table):
+    logging.info('Удаление пустых строк...')
+    for i, row in enumerate(upd_table):
+        d = ['-', '|', '-', '||']
+        if row == d:
+            upd_table.pop(i)
+    logging.info('Таблица готова к записи!')
     return upd_table
-    # pprint(upd_table)
-
-
-# def output(upd_table):
-
-#     xlsx_path = os.path.dirname(__file__) + r'\result.xlsx'
-#     df = pd.DataFrame(upd_table)
-#     with ExcelWriter(xlsx_path) as writer:
-#         df.to_excel(writer, index=0, header=False, sheet_name='test')
 
 
 def main():
     configure_logging()
     logging.info('Парсер запущен!')
-
-    a = get_spec_tables_lst()
-    results = aaa(a)
-
+    td_table = get_spec_tables_lst()
+    results = formation_text_table(td_table)
     if results is not None:
         output(results)
     logging.info('Парсер завершил работу.')

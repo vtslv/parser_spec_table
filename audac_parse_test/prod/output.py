@@ -11,18 +11,22 @@ DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 
 
 def output(upd_table):
-
+    logging.info('Запись в Excel...')
     # xlsx_path = BASE_DIR + r'\result.xlsx'
     results_dir = BASE_DIR / 'results'
     results_dir.mkdir(exist_ok=True)
-
     now = dt.datetime.now()
     now_formatted = now.strftime(DATETIME_FORMAT)
     file_name = f'{now_formatted}.xlsx'
     file_path = results_dir / file_name
     df = pd.DataFrame(upd_table)
-
     with ExcelWriter(file_path) as writer:
         df.to_excel(writer, index=0, header=False, sheet_name='test')
-
     logging.info(f'Файл с результатами был сохранён: {file_path}')
+
+
+# def output(upd_table):
+#     xlsx_path = os.path.dirname(__file__) + r'\result.xlsx'
+#     df = pd.DataFrame(upd_table)
+#     with ExcelWriter(xlsx_path) as writer:
+#         df.to_excel(writer, index=0, header=False, sheet_name='test')
