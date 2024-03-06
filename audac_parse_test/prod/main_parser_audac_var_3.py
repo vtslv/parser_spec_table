@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from urllib.parse import urlparse
 
 # import pandas as pd
 import requests_cache
@@ -18,6 +19,8 @@ BASE_DIR = Path(__file__).parent
 DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 
 PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-clevermount-4inch#section-specifications'
+# PRODUCTS_URL = 'https://audac.eu/eu/products/d/alti6---2-way-6inch-pendant-speaker#section-specifications'
+
 
 # PRODUCTS_URL = [
 #    'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-clevermount-4inch#section-specifications']
@@ -25,6 +28,12 @@ PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-cleverm
 #     'https://audac.eu/eu/products/d/xeno6---full-range-speaker-6inch#section-specifications'
 # ]
 
+def get_page_name():
+    url_path = urlparse(PRODUCTS_URL).path
+    # /eu/products/d/ateo4-
+    url_path_right = url_path.split('/')[4]
+    page_name = url_path_right.split('-')[0].upper()
+    return page_name
 
 def get_spec_tables_lst():
     # Загрузка веб-страницы с кешированием.
@@ -95,14 +104,16 @@ def empty_row_delete(upd_table):
     logging.info('Таблица готова к записи!')
     return upd_table
 
-
 def main():
     configure_logging()
     logging.info('Парсер запущен!')
+
+    page_name = get_page_name()
+
     td_table = get_spec_tables_lst()
     results = formation_text_table(td_table)
     if results is not None:
-        output(results)
+        output(results, page_name)
     logging.info('Парсер завершил работу.')
 
 
