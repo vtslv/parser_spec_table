@@ -89,8 +89,8 @@ def formation_text_table(td_table):
 def empty_row_delete(upd_table):
     logging.info('Удаление пустых строк...')
     for i, row in enumerate(upd_table):
-        d = ['-', '|', '-', '||']
-        if row == d:
+        ['-', '|', '-', '||']
+        if row == ['-', '|', '-', '||']:
             upd_table.pop(i)
     logging.info('Таблица готова к записи!')
     return upd_table
