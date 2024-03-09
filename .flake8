@@ -9,3 +9,4 @@ exclude =
   venv
   no_need
   parser_audac_var_3.py
+  constants.py

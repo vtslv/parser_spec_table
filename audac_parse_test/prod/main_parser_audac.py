@@ -1,62 +1,43 @@
+# import csv
 import logging
 from pathlib import Path
+# from pprint import pprint
 from urllib.parse import urlparse
 
 # import pandas as pd
 import requests_cache
 from bs4 import BeautifulSoup
 from configs import configure_logging
-# from openpyxl import Workbook
+from constants import PRODUCT_URLS
 from output import output
-# from pandas.io.excel import ExcelWriter
 from utils import get_response
 
-# import datetime as dt
-# from pprint import pprint
-
-
 BASE_DIR = Path(__file__).parent
-DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
-
-PRODUCTS_URL = 'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-clevermount-4inch#section-specifications'
-# PRODUCTS_URL = 'https://audac.eu/eu/products/d/alti6---2-way-6inch-pendant-speaker#section-specifications'
 
 
-# PRODUCTS_URL = [
-#    'https://audac.eu/eu/products/d/ateo4---wall-speaker-with-clevermount-4inch#section-specifications']
-#     'https://audac.eu/eu/products/d/alti6---2-way-6inch-pendant-speaker#section-specifications',
-#     'https://audac.eu/eu/products/d/xeno6---full-range-speaker-6inch#section-specifications'
-# ]
-
-def get_page_name():
-    url_path = urlparse(PRODUCTS_URL).path
+def get_page_name(url):
+    # url_path = urlparse(PRODUCTS_URL).path
+    url_path = urlparse(url).path
+    # url_path = url
     # /eu/products/d/ateo4-
     url_path_right = url_path.split('/')[4]
     page_name = url_path_right.split('-')[0].upper()
     return page_name
 
-def get_spec_tables_lst():
+
+def get_spec_tables_lst(url):
     # Загрузка веб-страницы с кешированием.
     session = requests_cache.CachedSession()
-    # for product_url in PRODUCTS_URL:
-    #     response = session.get(product_url)
-
-    # response = session.get(PRODUCTS_URL)
-    # response.encoding = 'utf-8'
-
-    response = get_response(session, PRODUCTS_URL)
+    response = get_response(session, url)
     if response is None:
         return
-
     # Создание "супа".
     url_soup = BeautifulSoup(response.text, features='lxml')
-
     # таблицу взяли
     all_spec_table_bs = url_soup.find_all(
         'table',
         attrs={'class': 'table table-hover mb-6 specification-table'}
     )
-
     # взял вторую таблицу из трех на странице. остальные потом/
     first_spec_table_bs = all_spec_table_bs[1]
     second_spec_table_bs = all_spec_table_bs[2]
@@ -104,17 +85,45 @@ def empty_row_delete(upd_table):
     logging.info('Таблица готова к записи!')
     return upd_table
 
+
 def main():
     configure_logging()
     logging.info('Парсер запущен!')
-
-    page_name = get_page_name()
-
-    td_table = get_spec_tables_lst()
-    results = formation_text_table(td_table)
-    if results is not None:
-        output(results, page_name)
+    # csv_dir = BASE_DIR / 'import_urls'
+    # csv_file_name = f'urls.xlsx'
+    # file_path = csv_dir / csv_file_name
+    # dfr = pd.read_excel(file_path, usecols='A')
+    # or url in dfr:
+    for url in PRODUCT_URLS:
+        page_name = get_page_name(url)
+        td_table = get_spec_tables_lst(url)
+        results = formation_text_table(td_table)
+        if results is not None:
+            output(results, page_name)
     logging.info('Парсер завершил работу.')
+
+# есть проблема с урлами в урлпарс.паф
+# def main():
+#     configure_logging()
+#     logging.info('Парсер запущен!')
+#     # for url in PRODUCT_URLS:
+#     csv_dir = BASE_DIR / 'import_urls'
+#     csv_file_name = f'urls.csv'
+#     file_path = csv_dir / csv_file_name
+
+#     with open(
+#         file_path,
+#         'r',
+#         # encoding='utf-8',
+#     ) as csv_url_file:
+#         csvreader = csv.reader(csv_url_file)
+#         for url in csvreader:
+#             page_name = get_page_name(url)
+#             td_table = get_spec_tables_lst(url)
+#             results = formation_text_table(td_table)
+#             if results is not None:
+#                 output(results, page_name)
+#     logging.info('Парсер завершил работу.')
 
 
 if __name__ == '__main__':
