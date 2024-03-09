@@ -1,0 +1,200 @@
+Speaker type
+Full range
+Peak power handling
+140 W
+Program power handling
+70 W
+RMS/AES power handling
+35 W
+Impedance
+8 Ω (ATEO4)
+
+16 Ω (ATEO4D)
+Incline angle
+Left
+30°
+
+Right
+30°
+
+Bottom
+30°
+
+Top
+5°
+Sensitivity (1W/1m)
+86 dB
+Sound Pressure (Max. W/1m)
+@ 8 Ω
+101 dB
+
+@ 100 V
+100 dB
+Frequency
+Response (± 3 dB)
+100 Hz - 20 kHz
+
+Range (-10 dB)
+65 Hz - 20 kHz
+Dispersion
+Horizontal
+130°
+
+Vertical
+130°
+Connectors
+6-pin Custom Terminal Block
+Drivers
+1” Dome tweeter
+
+4” MF / LF Woofer
+Line Transformer Tappings
+1
+208 Ω - 100 V / Not used - 70 V / 24 W
+
+2
+417 Ω - 100 V / 24 W - 70 V / 12 W
+
+3
+833 Ω - 100 V / 12 W - 70 V / 6 W
+
+4
+1667 Ω - 100 V / 6 W - 70 V / 3 W
+Dimensions
+136 x 244 x 153 mm (W x H x D)
+Weight
+2.050 kg
+Operating temperature
+-20 °C ~ 60 °C
+Mounting
+Clevermount™
+Accessories
+Included
+Allen-key wrench
+Construction
+ABS
+Front finish
+Steel grill
+Colours
+Black (RAL9005) (ATEO4/B, ATEO4D/B)
+
+White (RAL9003) (ATEO4/W, ATEO4D/W)
+Speaker type
+2-way coaxial
+Peak power handling
+240 W
+Program power handling
+120 W
+RMS/AES power handling
+60 W
+Impedance
+16 Ω
+Line Transformer Tappings
+1
+83 Ω - 100 V / Not used - 70 V / 60 W
+
+2
+167 Ω - 100 V / 60 W - 70 V / 30 W
+
+3
+333 Ω - 100 V / 30 W - 70 V / 15 W
+
+4
+667 Ω - 100 V / 15 W - 70 V / 7.5 W
+Dispersion
+Conical
+115° (average 500 Hz to 5 kHz @ -6 dB)
+Connectors
+4-pin Euro Terminal Block
+Sensitivity (1W/1m)
+83 dB
+Sound Pressure (Max. W/1m)
+@ 16 Ω
+101 dB
+Frequency
+Range (-10 dB)
+61.5 Hz - 20 kHz
+
+Response (± 3 dB)
+75 Hz - 17 kHz
+Dimensions
+230 x 302 mm (Ø x H)
+Connection cable length
+3.5 m
+Construction
+Polypropylene
+Front finish
+Aluminium grill
+Mounting & handling
+Dual snap hook and dual Gripple™ hanger
+Accessories
+Included
+Connection cable with dual steel core, snap hook & open ends – 3.5 meter
+
+
+2 Gripple™ hangers
+Weight
+3.39 kg
+Speaker type
+2-way
+Peak power handling
+320 W
+Program power handling
+160 W
+RMS/AES power handling
+80 W
+Impedance
+8 Ω
+Sensitivity (1W/1m)
+88 dB
+Sound Pressure (Max. W/1m)
+110 dB
+Frequency
+Response (± 3 dB)
+65 Hz - 18 kHz
+
+Range (-10 dB)
+55 Hz - 20 kHz
+Crossover
+Frequency
+2.5 kHz
+
+Type
+Passive built-in
+Dispersion
+Horizontal
+120°
+
+Vertical
+120°
+Connectors
+4-pin Euro Terminal Block (Pitch - 5.08 mm)
+Drivers
+1” Dome tweeter
+
+6” MF / LF Woofer
+Dimensions
+210 x 345 x 220 mm (W x H x D)
+Weight
+5.600 kg
+Operating temperature
+-20 °C ~ 60 °C
+Construction
+Medium Density Fibreboard with structured coating
+Front finish
+Steel grill
+Mounting & handling
+2-way Revolving mounting bracket
+Colours
+Black (RAL9004) (XENO6/B)
+
+White (RAL9003) (XENO6/W)
+Accessories
+Included
+4-pin Euro Terminal Block (Pitch - 5.08 mm)
+
+
+2-way Revolving mounting bracket
+
+Optional
+WBP100 Wall bracket mounting plate

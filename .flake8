@@ -10,3 +10,4 @@ exclude =
   no_need
   parser_audac_var_3.py
   constants.py
+  replace_dict.py
