@@ -9,7 +9,10 @@ import requests_cache
 from bs4 import BeautifulSoup
 from configs import configure_logging
 from constants import PRODUCT_URLS
+from keyword_replace import replace_td_tag_text_ru
 from output import output
+from tqdm import tqdm
+from unique_lines import uniquelines
 from utils import get_response
 
 BASE_DIR = Path(__file__).parent
@@ -49,14 +52,22 @@ def get_spec_tables_lst(url):
     for tr_tag in tr_tags_spec:
         row = []
         for td_tag in tr_tag.find_all('td'):
-            row.append(td_tag.text or '-')
+            # row.append(td_tag.text or '-')
+            td_text = td_tag.text
+            td_tag_text_ru = replace_td_tag_text_ru(td_text)
+            row.append(td_tag_text_ru or '-')
+            # вспомогательный файл temp для значений для перевода.
+            txt_file_name = 'temp_file_for_replace.txt'
+            with open(txt_file_name, 'a', encoding='utf-8') as output:
+                output.write(td_text + '\n')
         td_tag_text_table.append(row)
     logging.info('Получен текст "td" тэгов!')
     return td_tag_text_table
 
 
 def formation_text_table(td_table):
-    upd_table = [['Характеристика', '|', 'Значение', '||']]
+    # upd_table = [['Характеристика', '|', 'Значение', '||']]
+    upd_table = []
     logging.info('Форматирование таблицы...')
     for row in td_table:
         if len(row) == 2:
@@ -79,7 +90,7 @@ def formation_text_table(td_table):
 def empty_row_delete(upd_table):
     logging.info('Удаление пустых строк...')
     for i, row in enumerate(upd_table):
-        ['-', '|', '-', '||']
+        # ['-', '|', '-', '||']
         if row == ['-', '|', '-', '||']:
             upd_table.pop(i)
     logging.info('Таблица готова к записи!')
@@ -89,18 +100,19 @@ def empty_row_delete(upd_table):
 def main():
     configure_logging()
     logging.info('Парсер запущен!')
-    # csv_dir = BASE_DIR / 'import_urls'
-    # csv_file_name = f'urls.xlsx'
-    # file_path = csv_dir / csv_file_name
-    # dfr = pd.read_excel(file_path, usecols='A')
-    # or url in dfr:
-    for url in PRODUCT_URLS:
+    # очищаем вспомогательный файл temp
+    f = open('temp_file_for_replace.txt', 'w+', encoding='utf-8')
+    f.close()
+    for url in tqdm(PRODUCT_URLS):
         page_name = get_page_name(url)
         td_table = get_spec_tables_lst(url)
         results = formation_text_table(td_table)
         if results is not None:
             output(results, page_name)
+    logging.info('Создание уникальных значений для перевода...')
+    uniquelines()
     logging.info('Парсер завершил работу.')
+
 
 # есть проблема с урлами в урлпарс.паф
 # def main():

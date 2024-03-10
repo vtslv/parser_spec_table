@@ -1,0 +1,35 @@
+
+- добавить в словарь значения для замены.
+- Создать уникальные ключевые слова
+- Создать парсер ссылок:
+    главная ->
+        # Продукты ->
+            По сериям Громкоговорители ->
+                Все ссылки на серии (создать список) итерация по списку и достать лоя каждой ссылки на айтемы серии ->
+                    Модели серии. (кроме NOBA)
+
+
+
+
+ATEO series
+ALTI series
+WX/O series
+XENO series
+VEXO series
+FX series
+CELO series
+MERO series
+CALI series
+CIRA series
+CENA series
+BASO series
+VEXO/A series
+NOBA series
+KYRA series
+LINO series
+CHA series
+HS series
+SP series
+WX series
+VIRO series
+NOBA/A series
