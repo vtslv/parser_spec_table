@@ -9,3 +9,6 @@ exclude =
   venv
   no_need
   parser_audac_var_3.py
+  constants.py
+  replace_dict.py
+  main_parser_loudspeakers_urls.py
