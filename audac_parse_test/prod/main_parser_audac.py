@@ -11,6 +11,7 @@ from configs import configure_logging
 from constants import PRODUCT_URLS
 from keyword_replace import replace_td_tag_text_ru
 from output import output
+from tqdm import tqdm
 from unique_lines import uniquelines
 from utils import get_response
 
@@ -102,7 +103,7 @@ def main():
     # очищаем вспомогательный файл temp
     f = open('temp_file_for_replace.txt', 'w+', encoding='utf-8')
     f.close()
-    for url in PRODUCT_URLS:
+    for url in tqdm(PRODUCT_URLS):
         page_name = get_page_name(url)
         td_table = get_spec_tables_lst(url)
         results = formation_text_table(td_table)
