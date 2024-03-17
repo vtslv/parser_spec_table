@@ -8,8 +8,8 @@ from urllib.parse import urlparse
 import requests_cache
 from bs4 import BeautifulSoup
 from configs import configure_logging
-from constants import PRODUCT_URLS
-from keyword_replace import replace_td_tag_text_ru
+from constants import PRODUCT_URLS_AMPS
+from keyword_replace_amps import replace_td_tag_text_ru
 from output import output
 from tqdm import tqdm
 from unique_lines import uniquelines
@@ -42,8 +42,8 @@ def get_spec_tables_lst(url):
         attrs={'class': 'table table-hover mb-6 specification-table'}
     )
     # взял вторую таблицу из трех на странице. остальные потом/
-    first_spec_table_bs = all_spec_table_bs[1]
-    second_spec_table_bs = all_spec_table_bs[2]
+    first_spec_table_bs = all_spec_table_bs[0]
+    second_spec_table_bs = all_spec_table_bs[1]
     first_spec_table_bs.append(second_spec_table_bs)
     tr_tags_spec = first_spec_table_bs.find_all('tr')
     logging.info('Получены все "tr" тэги!')
@@ -75,7 +75,7 @@ def formation_text_table(td_table):
             row.insert(3, '||')
             upd_table.append(row)
 
-        elif len(row) > 2:
+        elif len(row) == 3:
             c1 = row[1]
             c2 = row[2]
             # row = [row[0], '|', None, '||']
@@ -83,6 +83,20 @@ def formation_text_table(td_table):
             upd_table.append(row)
             upd_row = [' ' * 10 + c1, '|', c2, '||']
             upd_table.append(upd_row)
+
+        elif len(row) == 4:
+            c1 = row[1]
+            c2 = row[2]
+            c3 = row[3]
+
+            # row = [row[0], '|', None, '||']
+            row = [row[0], '|', '-', '||']
+            upd_table.append(row)
+            row = [' ' * 10 + c1, '|', '-', '||']
+            upd_table.append(row)
+            row = [' ' * 10 + c2, '|', c3, '||']
+            upd_table.append(row)
+
     logging.info('Форматирование таблицы звавершено!')
     return empty_row_delete(upd_table)
 
@@ -90,8 +104,10 @@ def formation_text_table(td_table):
 def empty_row_delete(upd_table):
     logging.info('Удаление пустых строк...')
     for i, row in enumerate(upd_table):
-        # ['-', '|', '-', '||']
         if row == ['-', '|', '-', '||']:
+            upd_table.pop(i)
+    for i, row in enumerate(upd_table):
+        if row == ['          ' + '-', '|', '-', '||']:
             upd_table.pop(i)
     logging.info('Таблица готова к записи!')
     return upd_table
@@ -103,7 +119,7 @@ def main():
     # очищаем вспомогательный файл temp
     f = open('temp_file_for_replace.txt', 'w+', encoding='utf-8')
     f.close()
-    for url in tqdm(PRODUCT_URLS):
+    for url in tqdm(PRODUCT_URLS_AMPS):
         page_name = get_page_name(url)
         td_table = get_spec_tables_lst(url)
         results = formation_text_table(td_table)
