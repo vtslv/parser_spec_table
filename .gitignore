@@ -2,6 +2,7 @@ no_need/
 logs/
 .http_cache.sqlite
 logs/
+results/
 
 
 # Byte-compiled / optimized / DLL files
